@@ -1,0 +1,24 @@
+{
+  "name": "fabricapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pratik3098/BCDV1027_LAB7.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pratik3098/BCDV1027_LAB7/issues"
+  },
+  "homepage": "https://github.com/pratik3098/BCDV1027_LAB7#readme",
+  "dependencies": {
+    "fabric-ca-client": "^2.2.16",
+    "fabric-network": "^2.2.16"
+  }
+}
