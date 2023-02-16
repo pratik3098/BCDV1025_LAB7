@@ -29,7 +29,7 @@ async function getContract(userId){
         await gateway.connect(ccp, {
             wallet,
             identity: userId,
-            discovery: { enabled: false, asLocalhost: false } // using asLocalhost as this gateway is using a fabric network deployed locally
+            discovery: { enabled: true, asLocalhost: true } // using asLocalhost as this gateway is using a fabric network deployed locally
         });
 
 
@@ -113,3 +113,7 @@ exports.query = async function(userId, fcn, args){
     }
 
 }
+
+
+
+module.exports.invoke("user6", "GetCustomer", ["customer1"])
