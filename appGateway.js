@@ -131,5 +131,5 @@ exports.query = async function(userId, fcn, args){
 }
 
 
-module.exports.invoke("user1", "InitLedger").then(console.log)
-//module.exports.query("user1", "GetCustomer", ["customer1"]).then(console.log)
+module.exports.invoke("user1", "InitLedger").then(console.log).catch(console.log)
+//module.exports.query("user1", "GetCustomer", ["customer1"]).then(console.log).catch(console.log)
