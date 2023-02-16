@@ -167,8 +167,9 @@ exports.getIdentity=async function(identityName){
 }
 
 
-//module.exports.registerAndEnrollUser('org1', 'user1', 'peer').then(console.log)
 
+//module.exports.enrollAdmin("org1")
+module.exports.registerAndEnrollUser('org1', 'user1', 'client').then(console.log)
 //module.exports.registerAndEnrollUser('org1', 'user6', 'client').then(console.log)
 
 
