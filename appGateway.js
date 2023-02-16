@@ -55,8 +55,10 @@ async function getContract(userId){
 /**
  * A function to calling a EnrollCustomer Function
  * @param {String} userId 
- * @param {String} fcn 
- * @param {ARRAY[String]} args 
+ * @param {String} customerId
+ * @param {String} firstName
+ * @param {String} lastName
+ * @param {String} transitId
  * @returns  {JSON}
  */
 exports.EnrollCustomer = async function(userId, customerId, firstName, lastName, transitId){
@@ -88,13 +90,12 @@ exports.EnrollCustomer = async function(userId, customerId, firstName, lastName,
 
 
 /**
- * A generic function to query the ledger
+ * A generic function to query the GetCustomer Function
  * @param {String} userId 
- * @param {String} fcn 
- * @param {ARRAY[String]} args 
+ * @param {String} customerId
  * @returns  {JSON}
  */
-exports.GetCustomer = async function(userId, fcn, args){
+exports.GetCustomer = async function(userId, customerId){
 
     try{
       
