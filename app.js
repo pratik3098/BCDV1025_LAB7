@@ -3,7 +3,8 @@ const path=require('path')
 
 
 
+async function main(){
+   console.log("####### Fabric sample application #######")
+}
 
-
-// MSP Id: Org1MSP 
-// OrgName: Org1
+main()
