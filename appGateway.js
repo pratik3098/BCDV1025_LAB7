@@ -52,6 +52,11 @@ async function getContract(userId){
 }
 
 
+async function test(){
+
+    console.log(arguments)
+}
+
 /**
  * A generic function to submit a new transaction
  * @param {String} userId 
@@ -70,8 +75,8 @@ exports.invoke = async function(userId, fcn, args){
      // The resposne of the transaction
       let response={}
       if(Boolean(args)){
-       // response = await contract.submitTransaction(fcn, args)
-       response = await contract.submitTransaction('CreateAsset', 'asset13', 'yellow', '5', 'Tom', '1300')
+      // response = await contract.submitTransaction(fcn, args)
+       response = await contract.submitTransaction(['CreateAsset', 'asset13', 'yellow', '5', 'Tom', '1300'])
 
       }else{
 
@@ -143,10 +148,10 @@ module.exports.invoke("user1", "InitLedger").then(console.log).catch(console.log
 
 
 
-module.exports.invoke("user1", 'CreateAsset', ['asset13', 'yellow', '5', 'Tom', '1300'])
-.then((res)=>{
-    console.log(res)
-}).catch(console.log)
+// module.exports.invoke("user1", 'CreateAsset', 'asset13', 'yellow', '5', 'Tom', '1300')
+// .then((res)=>{
+//     console.log(res)
+// }).catch(console.log)
 
 
 //module.exports.query("user1", "GetCustomer", "customer1").then(console.log).catch(console.log)
