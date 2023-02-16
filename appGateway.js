@@ -141,4 +141,12 @@ module.exports.invoke("user1", "InitLedger").then(console.log).catch(console.log
 //     console.log(res)
 // }).catch(console.log)
 
+
+
+module.exports.invoke("user1", 'CreateAsset', ['asset13', 'yellow', '5', 'Tom', '1300'])
+.then((res)=>{
+    console.log(res)
+}).catch(console.log)
+
+
 //module.exports.query("user1", "GetCustomer", "customer1").then(console.log).catch(console.log)
