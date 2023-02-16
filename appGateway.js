@@ -65,7 +65,7 @@ async function test(){
  * @returns  {JSON}
  */
 exports.invoke = async function(userId, fcn, args){
-
+    
     try{
 
 
@@ -76,7 +76,7 @@ exports.invoke = async function(userId, fcn, args){
       let response={}
       if(Boolean(args)){
       // response = await contract.submitTransaction(fcn, args)
-       response = await contract.submitTransaction.apply(Array.from(arguments).slice(1))
+       response = await contract.submitTransaction('CreateAsset', 'asset13', 'yellow', '5', 'Tom', '1300')
 
       }else{
 
