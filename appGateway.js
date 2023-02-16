@@ -29,7 +29,7 @@ async function getContract(userId){
         await gateway.connect(ccp, {
             wallet,
             identity: userId,
-            discovery: { enabled: true, asLocalhost: true } // using asLocalhost as this gateway is using a fabric network deployed locally
+            discovery: { enabled: false, asLocalhost: false } // using asLocalhost as this gateway is using a fabric network deployed locally
         });
 
 
@@ -108,6 +108,7 @@ exports.query = async function(userId, fcn, args){
       
       // Retirivig the chaincode object
       const contract = await getContract(userId)
+
       
       // The resposne of the query   
       let response={}
@@ -131,5 +132,5 @@ exports.query = async function(userId, fcn, args){
 }
 
 
-module.exports.invoke("user1", "InitLedger").then(console.log).catch(console.log)
-//module.exports.query("user1", "GetCustomer", ["customer1"]).then(console.log).catch(console.log)
+//module.exports.invoke("user1", "InitLedger").then(console.log).catch(console.log)
+module.exports.query("user1", "GetCustomer", "customer1").then(console.log).catch(console.log)
