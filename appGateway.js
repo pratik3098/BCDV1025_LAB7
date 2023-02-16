@@ -52,19 +52,14 @@ async function getContract(userId){
 }
 
 
-async function test(){
-
-    console.log(arguments)
-}
-
 /**
- * A generic function to submit a new transaction
+ * A function to calling a EnrollCustomer Function
  * @param {String} userId 
  * @param {String} fcn 
  * @param {ARRAY[String]} args 
  * @returns  {JSON}
  */
-exports.invoke = async function(userId, fcn, args){
+exports.EnrollCustomer = async function(userId, customerId, firstName, lastName, transitId){
     
     try{
 
@@ -73,18 +68,8 @@ exports.invoke = async function(userId, fcn, args){
       const contract = await getContract(userId)
        
      // The resposne of the transaction
-      let response={}
-
-      response = await contract.submitTransaction("EnrollCustomer", "customer19", "Harry", "Kerrington", "TTC")
-    //   if(Boolean(args)){
-    //   response = await contract.submitTransaction(fcn, args)
-
-    //   }else{
-
-    //     response = await contract.submitTransaction(fcn)
-
-    //   }
-
+      const response = await contract.submitTransaction("EnrollCustomer", customerId, firstName, lastName, transitId )
+ 
       // Parsing the JSON object from the response
       return utils.prettyJSONString(response.toString());;
 
@@ -109,7 +94,7 @@ exports.invoke = async function(userId, fcn, args){
  * @param {ARRAY[String]} args 
  * @returns  {JSON}
  */
-exports.query = async function(userId, fcn, args){
+exports.GetCustomer = async function(userId, fcn, args){
 
     try{
       
@@ -118,15 +103,7 @@ exports.query = async function(userId, fcn, args){
 
       
       // The resposne of the query   
-      let response={}
-      if(Boolean(args)){
-        response = await contract.evaluateTransaction(fcn, args)
-
-      }else{
-
-        response = await contract.evaluateTransaction(fcn)
-
-      }
+      const response = await contract.submitTransaction("GetCustomer", customerId)
 
       // Parsing the JSON object from the response
       return utils.prettyJSONString(response.toString());
@@ -142,10 +119,10 @@ exports.query = async function(userId, fcn, args){
 //module.exports.invoke("user1", "InitLedger").then(console.log).catch(console.log)
 
 
-module.exports.invoke("user1", "EnrollCustomer", "customer19", "Harry", "Kerrington", "TTC")
-.then((res)=>{
-    console.log(res)
-}).catch(console.log)
+// module.exports.invoke("user1", "EnrollCustomer", "customer19", "Harry", "Kerrington", "TTC")
+// .then((res)=>{
+//     console.log(res)
+// }).catch(console.log)
 
 
 
@@ -155,4 +132,4 @@ module.exports.invoke("user1", "EnrollCustomer", "customer19", "Harry", "Kerring
 // }).catch(console.log)
 
 
-//module.exports.query("user1", "GetCustomer", "customer1").then(console.log).catch(console.log)
+module.exports.GetCustomer("user1","customer19").then(console.log).catch(console.log)
