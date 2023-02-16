@@ -5,6 +5,7 @@ const {buildCCPOrg, buildWallet, getMSPId}=require("./utils.js")
 
 /**
  *
+ * Function builds a CA client based on the ccp
  * @param {*} FabricCAServices
  * @param {*} ccp
  */
@@ -22,14 +23,21 @@ exports.buildCAClient = (orgId) => {
 
 
 
-
+/**
+ * Function enrolls the bootstrap admin id for the org CA 
+ * if not exists already.
+ * @param {String} orgId 
+ * @returns 
+ */
 exports.enrollAdmin=async function(orgId){
     
     try {
 
-
+       
+		// Building a CA Client
         const caClient = module.exports.buildCAClient(orgId)
-
+        
+		// Retirving the wallet object
         const wallet = await buildWallet()
         const orgMspId = getMSPId(orgId)
 
@@ -52,6 +60,8 @@ exports.enrollAdmin=async function(orgId){
 			type: 'X.509',
 		};
     
+
+		// Stroing the identity in the wallet
 		await wallet.put(adminCreds.userId, x509Identity);
 		console.log('Successfully enrolled admin user and imported it into the wallet');
 	} catch (error) {
@@ -60,12 +70,21 @@ exports.enrollAdmin=async function(orgId){
 }
 
 
-
+/**
+ * Registering the new identity based on the role
+ * @param {String} orgId 
+ * @param {String} userId 
+ * @param {String} role 
+ * @returns 
+ */
 exports.registerAndEnrollUser = async (orgId, userId, role) => {
 	try {
 
+
+		// Building a CA Client
         const caClient = module.exports.buildCAClient(orgId)
 
+		// Retirving the wallet object
         const wallet = await buildWallet()
         const orgMspId = getMSPId(orgId)
         
@@ -96,11 +115,13 @@ exports.registerAndEnrollUser = async (orgId, userId, role) => {
 			role: role
 		}, adminUser);
 
-    
+        // Enrolling the identity    
 		const enrollment = await caClient.enroll({
 			enrollmentID: userId,
 			enrollmentSecret: secret
 		});
+
+		// Creating a JSON object for the identity
 		const x509Identity = {
 			credentials: {
 				certificate: enrollment.certificate,
@@ -109,23 +130,37 @@ exports.registerAndEnrollUser = async (orgId, userId, role) => {
 			mspId: orgMspId,
 			type: 'X.509',
 		};
+
+
+		// Stroing the identity in the wallet
 		await wallet.put(userId, x509Identity);
 
 		return x509Identity;
 	} catch (error) {
+
+		// Returing if the error occurs
 		console.error(`Failed to register user : ${error}`);
+		return error
 	}
 };
 
-
+/**
+ * Function returns the identity from the wallet
+ * @param {String} identityName 
+ * @returns {JSON}
+ */
 exports.getIdentity=async function(identityName){
 
     try{
+
 		const wallet = await buildWallet()
 		const identity = await wallet.get(identityName)
 		return identity
 
 	}catch(err){
+	    
+		
+		// Returing if the error occurs
 		return err
 	}
 
@@ -134,7 +169,7 @@ exports.getIdentity=async function(identityName){
 
 //module.exports.registerAndEnrollUser('org1', 'user1', 'peer').then(console.log)
 
-module.exports.registerAndEnrollUser('org1', 'user6', 'client').then(console.log)
+//module.exports.registerAndEnrollUser('org1', 'user6', 'client').then(console.log)
 
 
 

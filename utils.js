@@ -3,11 +3,22 @@ const path = require('path');
 const {Wallets}=require("fabric-network")
 
 
-exports.getWalletPath=function(){
+/**
+ * Function returns the path for Filestystem Wallet
+ * @returns {String}
+ * 
+ */
+function getWalletPath(){
   return path.resolve(__dirname, "wallet");
 }
 
 
+
+/**
+ * Function returns the ccp object for the org
+ * @param {String} orgName 
+ * @returns  {JSON}
+ */
 exports.buildCCPOrg = (orgName) => {
 	// load the common connection configuration file
 	const ccpPath = path.resolve(__dirname, 'connections',  `connection-${orgName.toLowerCase()}.json`);
@@ -24,17 +35,26 @@ exports.buildCCPOrg = (orgName) => {
 	return ccp;
 };
 
-
+/**
+ * Function returns the wallet object. 
+ * If the walletpath does not exists on the local filesystem
+ * a In-Memory wallet is returned
+ * @returns {Object}
+ */
 exports.buildWallet = async () => {
 	// Create a new  wallet : Note that wallet is for managing identities.
 	let wallet;
-    const walletPath = module.exports.getWalletPath();
+    const walletPath = getWalletPath();
 
+	// Checking if the wallet directory exists
 	if (fs.existsSync(walletPath)) {
-    
+        
+		// If the directory exists a FileSystem wallet is created
 		wallet = await Wallets.newFileSystemWallet(walletPath);
 		console.log(`Built a file system wallet at ${walletPath}`);
 	} else {
+
+		// If not the In-Memory wallet is created
 		wallet = await Wallets.newInMemoryWallet();
 		console.log('Built an in memory wallet');
 	}
@@ -43,7 +63,11 @@ exports.buildWallet = async () => {
 };
 
 
-
+/**
+ * The function stringifies the JSON object
+ * @param {String} inputString 
+ * @returns {String} 
+ */
 exports.prettyJSONString = (inputString) => {
 	if (inputString) {
 		 return JSON.stringify(JSON.parse(inputString), null, 2);
