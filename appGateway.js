@@ -70,7 +70,8 @@ exports.invoke = async function(userId, fcn, args){
      // The resposne of the transaction
       let response={}
       if(Boolean(args)){
-        response = await contract.submitTransaction(fcn, args)
+       // response = await contract.submitTransaction(fcn, args)
+       response = await contract.submitTransaction("EnrollCustomer", "customer19", "Harry", "Kerrington", "TTC")
 
       }else{
 
@@ -135,7 +136,7 @@ exports.query = async function(userId, fcn, args){
 //module.exports.invoke("user1", "InitLedger").then(console.log).catch(console.log)
 
 
-module.exports.invoke("user1", "EnrollCustomer", ["customer19", "Harry", "Kerrington", "TTC"])
+module.exports.invoke("user1", "EnrollCustomer", "customer19", "Harry", "Kerrington", "TTC")
 .then((res)=>{
     console.log(res)
 }).catch(console.log)
