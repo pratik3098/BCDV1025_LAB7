@@ -115,22 +115,3 @@ exports.GetCustomer = async function(userId, customerId){
     }
 
 }
-
-
-//module.exports.invoke("user1", "InitLedger").then(console.log).catch(console.log)
-
-
-// module.exports.invoke("user1", "EnrollCustomer", "customer19", "Harry", "Kerrington", "TTC")
-// .then((res)=>{
-//     console.log(res)
-// }).catch(console.log)
-
-
-
-// module.exports.invoke("user1", 'CreateAsset', 'asset13', 'yellow', '5', 'Tom', '1300')
-// .then((res)=>{
-//     console.log(res)
-// }).catch(console.log)
-
-
-module.exports.GetCustomer("user1","customer19").then(console.log).catch(console.log)
