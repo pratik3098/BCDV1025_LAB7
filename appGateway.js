@@ -29,7 +29,7 @@ async function getContract(userId){
         await gateway.connect(ccp, {
             wallet,
             identity: userId,
-            discovery: { enabled: true, asLocalhost: false } // using asLocalhost as this gateway is using a fabric network deployed locally
+            discovery: { enabled: true, asLocalhost: true } // using asLocalhost as this gateway is using a fabric network deployed locally
         });
 
 
@@ -68,7 +68,15 @@ exports.invoke = async function(userId, fcn, args){
       const contract = await getContract(userId)
        
      // The resposne of the transaction
-      const response = await contract.submitTransaction(fcn, args)
+      let response={}
+      if(Boolean(args)){
+        response = await contract.submitTransaction(fcn, args)
+
+      }else{
+
+        response = await contract.submitTransaction(fcn)
+
+      }
 
       // Parsing the JSON object from the response
       return utils.prettyJSONString(response.toString());;
@@ -102,7 +110,15 @@ exports.query = async function(userId, fcn, args){
       const contract = await getContract(userId)
       
       // The resposne of the query   
-      const response = await contract.evaluateTransaction(fcn, args)
+      let response={}
+      if(Boolean(args)){
+        response = await contract.evaluateTransaction(fcn, args)
+
+      }else{
+
+        response = await contract.evaluateTransaction(fcn)
+
+      }
 
       // Parsing the JSON object from the response
       return utils.prettyJSONString(response.toString());
@@ -115,5 +131,5 @@ exports.query = async function(userId, fcn, args){
 }
 
 
-
-module.exports.invoke("user1", "GetCustomer", ["customer1"])
+module.exports.invoke("user1", "InitLedger")
+module.exports.query("user1", "GetCustomer", ["customer1"])
