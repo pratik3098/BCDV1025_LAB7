@@ -71,7 +71,7 @@ exports.invoke = async function(userId, fcn, args){
       let response={}
       if(Boolean(args)){
        // response = await contract.submitTransaction(fcn, args)
-       response = await contract.submitTransaction('CreateAsset', ['asset13', 'yellow', '5', 'Tom', '1300'])
+       response = await contract.submitTransaction('CreateAsset', 'asset13', 'yellow', '5', 'Tom', '1300')
 
       }else{
 
