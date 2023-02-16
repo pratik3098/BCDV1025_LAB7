@@ -1,6 +1,6 @@
 'use strict'
 const FabricCAServices=require('fabric-ca-client')
-const adminCreds=require("./adminCreds.json")
+const adminCreds=require("./connections/adminCreds.json")
 const {buildCCPOrg, buildWallet, getMSPId}=require("./utils.js")
 
 /**

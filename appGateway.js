@@ -63,12 +63,14 @@ exports.invoke = async function(userId, fcn, args){
 
     try{
 
+
+    // Retirivig the chaincode object
       const contract = await getContract(userId)
        
-
+     // The resposne of the transaction
       const response = await contract.submitTransaction(fcn, args)
 
-
+      // Parsing the JSON object from the response
       return utils.prettyJSONString(response.toString());;
 
     }catch(err){
@@ -95,12 +97,14 @@ exports.invoke = async function(userId, fcn, args){
 exports.query = async function(userId, fcn, args){
 
     try{
-
+      
+      // Retirivig the chaincode object
       const contract = await getContract(userId)
-       
+      
+      // The resposne of the query   
       const response = await contract.evaluateTransaction(fcn, args)
 
-
+      // Parsing the JSON object from the response
       return utils.prettyJSONString(response.toString());
 
     }catch(err){
@@ -109,5 +113,3 @@ exports.query = async function(userId, fcn, args){
     }
 
 }
-
-
