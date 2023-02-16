@@ -61,7 +61,7 @@ exports.enrollAdmin=async function(orgId){
 
 
 
-exports.registerAndEnrollUser = async (orgId, userId, affiliation) => {
+exports.registerAndEnrollUser = async (orgId, userId, role) => {
 	try {
 
         const caClient = module.exports.buildCAClient(orgId)
@@ -86,14 +86,14 @@ exports.registerAndEnrollUser = async (orgId, userId, affiliation) => {
 
 		// build a user object for authenticating with the CA
 		const provider = wallet.getProviderRegistry().getProvider(adminIdentity.type);
-		const adminUser = await provider.getUserContext(adminIdentity, adminUserId);
+		const adminUser = await provider.getUserContext(adminIdentity, adminCreds.userId);
 
 		// Register the user, enroll the user, and import the new identity into the wallet.
 		// if affiliation is specified by client, the affiliation value must be configured in CA
 		const secret = await caClient.register({
-			affiliation: affiliation,
+			affiliation: `${orgId.toLowerCase()}.department1`,
 			enrollmentID: userId,
-			role: 'client'
+			role: role
 		}, adminUser);
 
     
@@ -110,8 +110,32 @@ exports.registerAndEnrollUser = async (orgId, userId, affiliation) => {
 			type: 'X.509',
 		};
 		await wallet.put(userId, x509Identity);
-		console.log(`Successfully registered and enrolled user ${userId} and imported it into the wallet`);
+
+		return x509Identity;
 	} catch (error) {
 		console.error(`Failed to register user : ${error}`);
 	}
 };
+
+
+exports.getIdentity=async function(identityName){
+
+    try{
+		const wallet = await buildWallet()
+		const identity = await wallet.get(identityName)
+		return identity
+
+	}catch(err){
+		return err
+	}
+
+}
+
+
+//module.exports.registerAndEnrollUser('org1', 'user1', 'peer').then(console.log)
+
+//module.exports.registerAndEnrollUser('org1', 'user6', 'client').then(console.log)
+
+
+
+module.exports.getIdentity("admin").then(console.log)

@@ -3,8 +3,6 @@ const path = require('path');
 const {Wallets}=require("fabric-network")
 
 
-
-
 exports.getWalletPath=function(){
   return path.resolve(__dirname, "wallet");
 }
@@ -59,5 +57,5 @@ exports.prettyJSONString = (inputString) => {
 
 
 exports.getMSPId=function(orgId){
-     return `${orgId}MSP`;
+     return `${orgId.charAt(0).toUpperCase()}${orgId.slice(1)}MSP`;
 }
