@@ -74,15 +74,16 @@ exports.invoke = async function(userId, fcn, args){
        
      // The resposne of the transaction
       let response={}
-      if(Boolean(args)){
-      // response = await contract.submitTransaction(fcn, args)
-       response = await contract.submitTransaction('CreateAsset', 'asset14', 'yellow', '5', 'Tom', '1300')
 
-      }else{
+      response = await contract.submitTransaction("EnrollCustomer", "customer19", "Harry", "Kerrington", "TTC")
+    //   if(Boolean(args)){
+    //   response = await contract.submitTransaction(fcn, args)
 
-        response = await contract.submitTransaction(fcn)
+    //   }else{
 
-      }
+    //     response = await contract.submitTransaction(fcn)
+
+    //   }
 
       // Parsing the JSON object from the response
       return utils.prettyJSONString(response.toString());;

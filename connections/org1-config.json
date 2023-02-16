@@ -1,7 +1,7 @@
 {
      "orgName": "Org1",
      "channelName" : "mych",
-     "chaincodeName" : "basic",
+     "chaincodeName" : "testcc",
      "mspOrg" : "Org1MSP",
      "userId" : "user4"
 }
