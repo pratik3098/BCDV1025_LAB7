@@ -3,5 +3,5 @@
      "channelName" : "mych",
      "chaincodeName" : "testcc",
      "mspOrg" : "Org1MSP",
-     "userId" : "user4"
+     "userId" : "user1"
 }
