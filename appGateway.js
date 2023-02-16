@@ -17,7 +17,7 @@ module.exports.getContract=async function(userId){
         await gateway.connect(ccp, {
             wallet,
             identity: userId,
-            discovery: { enabled: true, asLocalhost: false } // using asLocalhost as this gateway is using a fabric network deployed locally
+            discovery: { enabled: false, asLocalhost: false } // using asLocalhost as this gateway is using a fabric network deployed locally
         });
 
         const network = await gateway.getNetwork(orgConfig.channelName);
@@ -35,13 +35,13 @@ module.exports.getContract=async function(userId){
 
 
 
-exports.invoke = async function(userId){
+exports.invoke = async function(userId, fcn){
 
     try{
 
       const contract = await module.exports.getContract(userId)
        
-      const response = await contract.submitTransaction('InitLedger')
+      const response = await contract.submitTransaction(fcn)
 
 
       return response;
@@ -58,13 +58,13 @@ exports.invoke = async function(userId){
 
 
 
-exports.query = async function(userId){
+exports.query = async function(userId, fcn){
 
     try{
 
       const contract = await module.exports.getContract(userId)
        
-      const response = await contract.evaluateTransaction('GetAllCustomers')
+      const response = await contract.evaluateTransaction(fcn)
 
 
       return response;
@@ -79,7 +79,7 @@ exports.query = async function(userId){
 
 
 module.exports.invoke('admin').then((result)=>{
-    console.log(`*** Result: ${utils.prettyJSONString(result.toString())}`);
+    console.log(`*** Result: ${result}`);
 
 }).catch(console.log)
 
