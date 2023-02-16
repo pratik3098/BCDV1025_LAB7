@@ -132,4 +132,4 @@ exports.query = async function(userId, fcn, args){
 
 
 module.exports.invoke("user1", "InitLedger")
-module.exports.query("user1", "GetCustomer", ["customer1"])
+//module.exports.query("user1", "GetCustomer", ["customer1"])
